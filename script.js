@@ -72,79 +72,9 @@ let Triangle = function () {
 
     gl.validateProgram(program);
 
-    // -1.0 do 1.0
-    var boxVertices =
-        [ // X, Y, Z           R, G, B
-            // Top
-            -1.0, 1.0, -1.0,
-            -1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0,
-            1.0, 1.0, -1.0,
-
-            // Left
-            -1.0, 1.0, 1.0,
-            -1.0, -1.0, 1.0,
-            -1.0, -1.0, -1.0,
-            -1.0, 1.0, -1.0,
-
-            // Right
-            1.0, 1.0, 1.0,
-            1.0, -1.0, 1.0,
-            1.0, -1.0, -1.0,
-            1.0, 1.0, -1.0,
-
-            // Front
-            1.0, 1.0, 1.0,
-            1.0, -1.0, 1.0,
-            -1.0, -1.0, 1.0,
-            -1.0, 1.0, 1.0,
-
-            // Back
-            1.0, 1.0, -1.0,
-            1.0, -1.0, -1.0,
-            -1.0, -1.0, -1.0,
-            -1.0, 1.0, -1.0,
-
-            // Bottom
-            -1.0, -1.0, -1.0,
-            -1.0, -1.0, 1.0,
-            1.0, -1.0, 1.0,
-            1.0, -1.0, -1.0,
-        ];
-
-
-    let colors = [
-        // R, G, B
-        0.5, 0.5, 0.5,
-        0.5, 0.5, 0.5,
-        0.5, 0.5, 0.5,
-        0.5, 0.5, 0.5,
-
-        0.75, 0.25, 0.5,
-        0.75, 0.25, 0.5,
-        0.75, 0.25, 0.5,
-        0.75, 0.25, 0.5,
-
-        0.25, 0.25, 0.75,
-        0.25, 0.25, 0.75,
-        0.25, 0.25, 0.75,
-        0.25, 0.25, 0.75,
-
-        1.0, 0.0, 0.15,
-        1.0, 0.0, 0.15,
-        1.0, 0.0, 0.15,
-        1.0, 0.0, 0.15,
-
-        0.0, 1.0, 0.15,
-        0.0, 1.0, 0.15,
-        0.0, 1.0, 0.15,
-        0.0, 1.0, 0.15,
-
-        0.5, 0.5, 1.0,
-        0.5, 0.5, 1.0,
-        0.5, 0.5, 1.0,
-        0.5, 0.5, 1.0,
-    ]
+    let vertices_and_colors = generateCubeIndices(3, [0.33, 0.5, 0.25]);
+    var boxVertices = vertices_and_colors[0];
+    let colors = vertices_and_colors[1];
 
     var boxIndices =
         [
@@ -250,4 +180,52 @@ let Triangle = function () {
     }
     requestAnimationFrame(loop);
 
+}
+
+
+// color to tablica 3 elementowa z kolorem w RGB 
+function generateCubeIndices(sideLength, color) {
+    // Wierzchołki szescianu
+    var vertices = [
+        // Top
+        -sideLength / 2, sideLength / 2, -sideLength / 2,
+        -sideLength / 2, sideLength / 2, sideLength / 2,
+        sideLength / 2, sideLength / 2, sideLength / 2,
+        sideLength / 2, sideLength / 2, -sideLength / 2,
+        // Left
+        -sideLength / 2, sideLength / 2, sideLength / 2,
+        -sideLength / 2, -sideLength / 2, sideLength / 2,
+        -sideLength / 2, -sideLength / 2, -sideLength / 2,
+        -sideLength / 2, sideLength / 2, -sideLength / 2,
+        // Right
+        sideLength / 2, sideLength / 2, sideLength / 2,
+        sideLength / 2, -sideLength / 2, sideLength / 2,
+        sideLength / 2, -sideLength / 2, -sideLength / 2,
+        sideLength / 2, sideLength / 2, -sideLength / 2,
+        // Front
+        sideLength / 2, sideLength / 2, sideLength / 2,
+        sideLength / 2, -sideLength / 2, sideLength / 2,
+        -sideLength / 2, -sideLength / 2, sideLength / 2,
+        -sideLength / 2, sideLength / 2, sideLength / 2,
+        // Back
+        sideLength / 2, sideLength / 2, -sideLength / 2,
+        sideLength / 2, -sideLength / 2, -sideLength / 2,
+        -sideLength / 2, -sideLength / 2, -sideLength / 2,
+        -sideLength / 2, sideLength / 2, -sideLength / 2,
+
+        // Bottom
+        -sideLength / 2, -sideLength / 2, -sideLength / 2,
+        -sideLength / 2, -sideLength / 2, sideLength / 2,
+        sideLength / 2, -sideLength / 2, sideLength / 2,
+        sideLength / 2, -sideLength / 2, -sideLength / 2
+      ];
+
+    var colors = [];       
+        for(i = 0; i< 24; i++){
+            colors.push(color[0]);
+            colors.push(color[1]);
+            colors.push(color[2]);
+        }
+
+    return [vertices, colors]
 }
